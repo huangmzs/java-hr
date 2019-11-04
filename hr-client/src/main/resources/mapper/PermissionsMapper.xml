@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.java158.hrclient.mapper.PermissionsMapper" >
+  <resultMap id="BaseResultMap" type="com.java158.hr.entity.Permissions" >
+    <id column="ment_id" property="mentId" jdbcType="INTEGER" />
+    <result column="ment_name" property="mentName" jdbcType="VARCHAR" />
+    <result column="ment_state" property="mentState" jdbcType="INTEGER" />
+    <result column="ment_url" property="mentUrl" jdbcType="VARCHAR" />
+    <result column="super_ment_id" property="superMentId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ment_id, ment_name, ment_state, ment_url, super_ment_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.java158.hr.entity.PermissionsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from permissions
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from permissions
+    where ment_id = #{mentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from permissions
+    where ment_id = #{mentId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.java158.hr.entity.PermissionsExample" >
+    delete from permissions
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.java158.hr.entity.Permissions" >
+    insert into permissions (ment_id, ment_name, ment_state, 
+      ment_url, super_ment_id)
+    values (#{mentId,jdbcType=INTEGER}, #{mentName,jdbcType=VARCHAR}, #{mentState,jdbcType=INTEGER}, 
+      #{mentUrl,jdbcType=VARCHAR}, #{superMentId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.java158.hr.entity.Permissions" >
+    insert into permissions
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mentId != null" >
+        ment_id,
+      </if>
+      <if test="mentName != null" >
+        ment_name,
+      </if>
+      <if test="mentState != null" >
+        ment_state,
+      </if>
+      <if test="mentUrl != null" >
+        ment_url,
+      </if>
+      <if test="superMentId != null" >
+        super_ment_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mentId != null" >
+        #{mentId,jdbcType=INTEGER},
+      </if>
+      <if test="mentName != null" >
+        #{mentName,jdbcType=VARCHAR},
+      </if>
+      <if test="mentState != null" >
+        #{mentState,jdbcType=INTEGER},
+      </if>
+      <if test="mentUrl != null" >
+        #{mentUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="superMentId != null" >
+        #{superMentId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.java158.hr.entity.PermissionsExample" resultType="java.lang.Integer" >
+    select count(*) from permissions
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update permissions
+    <set >
+      <if test="record.mentId != null" >
+        ment_id = #{record.mentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.mentName != null" >
+        ment_name = #{record.mentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mentState != null" >
+        ment_state = #{record.mentState,jdbcType=INTEGER},
+      </if>
+      <if test="record.mentUrl != null" >
+        ment_url = #{record.mentUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.superMentId != null" >
+        super_ment_id = #{record.superMentId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update permissions
+    set ment_id = #{record.mentId,jdbcType=INTEGER},
+      ment_name = #{record.mentName,jdbcType=VARCHAR},
+      ment_state = #{record.mentState,jdbcType=INTEGER},
+      ment_url = #{record.mentUrl,jdbcType=VARCHAR},
+      super_ment_id = #{record.superMentId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.java158.hr.entity.Permissions" >
+    update permissions
+    <set >
+      <if test="mentName != null" >
+        ment_name = #{mentName,jdbcType=VARCHAR},
+      </if>
+      <if test="mentState != null" >
+        ment_state = #{mentState,jdbcType=INTEGER},
+      </if>
+      <if test="mentUrl != null" >
+        ment_url = #{mentUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="superMentId != null" >
+        super_ment_id = #{superMentId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ment_id = #{mentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.java158.hr.entity.Permissions" >
+    update permissions
+    set ment_name = #{mentName,jdbcType=VARCHAR},
+      ment_state = #{mentState,jdbcType=INTEGER},
+      ment_url = #{mentUrl,jdbcType=VARCHAR},
+      super_ment_id = #{superMentId,jdbcType=INTEGER}
+    where ment_id = #{mentId,jdbcType=INTEGER}
+  </update>
+</mapper>

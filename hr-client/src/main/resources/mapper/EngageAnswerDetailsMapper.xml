@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.java158.hrclient.mapper.EngageAnswerDetailsMapper" >
+  <resultMap id="BaseResultMap" type="com.java158.hr.entity.EngageAnswerDetails" >
+    <id column="and_id" property="andId" jdbcType="SMALLINT" />
+    <result column="answer_number" property="answerNumber" jdbcType="VARCHAR" />
+    <result column="subject_id" property="subjectId" jdbcType="SMALLINT" />
+    <result column="answer" property="answer" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    and_id, answer_number, subject_id, answer
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.java158.hr.entity.EngageAnswerDetailsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from engage_answer_details
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Short" >
+    select 
+    <include refid="Base_Column_List" />
+    from engage_answer_details
+    where and_id = #{andId,jdbcType=SMALLINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short" >
+    delete from engage_answer_details
+    where and_id = #{andId,jdbcType=SMALLINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.java158.hr.entity.EngageAnswerDetailsExample" >
+    delete from engage_answer_details
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.java158.hr.entity.EngageAnswerDetails" >
+    insert into engage_answer_details (and_id, answer_number, subject_id, 
+      answer)
+    values (#{andId,jdbcType=SMALLINT}, #{answerNumber,jdbcType=VARCHAR}, #{subjectId,jdbcType=SMALLINT}, 
+      #{answer,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.java158.hr.entity.EngageAnswerDetails" >
+    insert into engage_answer_details
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="andId != null" >
+        and_id,
+      </if>
+      <if test="answerNumber != null" >
+        answer_number,
+      </if>
+      <if test="subjectId != null" >
+        subject_id,
+      </if>
+      <if test="answer != null" >
+        answer,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="andId != null" >
+        #{andId,jdbcType=SMALLINT},
+      </if>
+      <if test="answerNumber != null" >
+        #{answerNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectId != null" >
+        #{subjectId,jdbcType=SMALLINT},
+      </if>
+      <if test="answer != null" >
+        #{answer,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.java158.hr.entity.EngageAnswerDetailsExample" resultType="java.lang.Integer" >
+    select count(*) from engage_answer_details
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update engage_answer_details
+    <set >
+      <if test="record.andId != null" >
+        and_id = #{record.andId,jdbcType=SMALLINT},
+      </if>
+      <if test="record.answerNumber != null" >
+        answer_number = #{record.answerNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subjectId != null" >
+        subject_id = #{record.subjectId,jdbcType=SMALLINT},
+      </if>
+      <if test="record.answer != null" >
+        answer = #{record.answer,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update engage_answer_details
+    set and_id = #{record.andId,jdbcType=SMALLINT},
+      answer_number = #{record.answerNumber,jdbcType=VARCHAR},
+      subject_id = #{record.subjectId,jdbcType=SMALLINT},
+      answer = #{record.answer,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.java158.hr.entity.EngageAnswerDetails" >
+    update engage_answer_details
+    <set >
+      <if test="answerNumber != null" >
+        answer_number = #{answerNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectId != null" >
+        subject_id = #{subjectId,jdbcType=SMALLINT},
+      </if>
+      <if test="answer != null" >
+        answer = #{answer,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where and_id = #{andId,jdbcType=SMALLINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.java158.hr.entity.EngageAnswerDetails" >
+    update engage_answer_details
+    set answer_number = #{answerNumber,jdbcType=VARCHAR},
+      subject_id = #{subjectId,jdbcType=SMALLINT},
+      answer = #{answer,jdbcType=VARCHAR}
+    where and_id = #{andId,jdbcType=SMALLINT}
+  </update>
+</mapper>

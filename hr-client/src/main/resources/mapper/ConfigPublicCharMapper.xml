@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.java158.hrclient.mapper.ConfigPublicCharMapper" >
+  <resultMap id="BaseResultMap" type="com.java158.hr.entity.ConfigPublicChar" >
+    <id column="pbc_id" property="pbcId" jdbcType="SMALLINT" />
+    <result column="attribute_kind" property="attributeKind" jdbcType="VARCHAR" />
+    <result column="attribute_name" property="attributeName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    pbc_id, attribute_kind, attribute_name
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.java158.hr.entity.ConfigPublicCharExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from config_public_char
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Short" >
+    select 
+    <include refid="Base_Column_List" />
+    from config_public_char
+    where pbc_id = #{pbcId,jdbcType=SMALLINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short" >
+    delete from config_public_char
+    where pbc_id = #{pbcId,jdbcType=SMALLINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.java158.hr.entity.ConfigPublicCharExample" >
+    delete from config_public_char
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.java158.hr.entity.ConfigPublicChar" >
+    insert into config_public_char (pbc_id, attribute_kind, attribute_name
+      )
+    values (#{pbcId,jdbcType=SMALLINT}, #{attributeKind,jdbcType=VARCHAR}, #{attributeName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.java158.hr.entity.ConfigPublicChar" >
+    insert into config_public_char
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pbcId != null" >
+        pbc_id,
+      </if>
+      <if test="attributeKind != null" >
+        attribute_kind,
+      </if>
+      <if test="attributeName != null" >
+        attribute_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pbcId != null" >
+        #{pbcId,jdbcType=SMALLINT},
+      </if>
+      <if test="attributeKind != null" >
+        #{attributeKind,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeName != null" >
+        #{attributeName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.java158.hr.entity.ConfigPublicCharExample" resultType="java.lang.Integer" >
+    select count(*) from config_public_char
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update config_public_char
+    <set >
+      <if test="record.pbcId != null" >
+        pbc_id = #{record.pbcId,jdbcType=SMALLINT},
+      </if>
+      <if test="record.attributeKind != null" >
+        attribute_kind = #{record.attributeKind,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attributeName != null" >
+        attribute_name = #{record.attributeName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update config_public_char
+    set pbc_id = #{record.pbcId,jdbcType=SMALLINT},
+      attribute_kind = #{record.attributeKind,jdbcType=VARCHAR},
+      attribute_name = #{record.attributeName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.java158.hr.entity.ConfigPublicChar" >
+    update config_public_char
+    <set >
+      <if test="attributeKind != null" >
+        attribute_kind = #{attributeKind,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeName != null" >
+        attribute_name = #{attributeName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pbc_id = #{pbcId,jdbcType=SMALLINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.java158.hr.entity.ConfigPublicChar" >
+    update config_public_char
+    set attribute_kind = #{attributeKind,jdbcType=VARCHAR},
+      attribute_name = #{attributeName,jdbcType=VARCHAR}
+    where pbc_id = #{pbcId,jdbcType=SMALLINT}
+  </update>
+</mapper>
